@@ -10,8 +10,20 @@ public class DragGameSprite : MonoBehaviour
     private Vector2 PreviousMousePos, CurrentMousePos, MousePosDifference;
     public Rigidbody2D rigidbody;
     public float driftMultiplier = 25f;
+    public float lerpMultiplierMin = 1f;
+    public float lerpMultiplierMax = 10f;
+    public float time;
 
-    
+    public Tools _tool;
+
+    private void Start()
+    {
+        GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
+        if (gameObject)
+        {
+            _tool = gameObject.GetComponent<Tools>();
+        }
+    }
 
     private void Update()
     {
@@ -19,13 +31,25 @@ public class DragGameSprite : MonoBehaviour
         //Debug.Log("previousmouse"+PreviousMousePos.ToString());
         //Debug.Log("object"+this.transform.position.ToString());
         
-       
+        
 
         if (isBeingHeld == true)
         {
+            if (time < lerpMultiplierMin) time = lerpMultiplierMin;
+            time = Mathf.Lerp(time, lerpMultiplierMax, 0.001f);
             PreviousMousePos = CurrentMousePos;
             CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            this.gameObject.transform.position = new Vector2(CurrentMousePos.x + startPosX, CurrentMousePos.y + startPosY);
+            //this.gameObject.transform.position = Vector2.Lerp(transform.position, new Vector3(CurrentMousePos.x + startPosX, CurrentMousePos.y + startPosY), Time.deltaTime * time);
+            this.gameObject.transform.position = Vector2.Lerp(transform.position, new Vector3(CurrentMousePos.x, CurrentMousePos.y), Time.deltaTime * time); ;
+        }
+        else
+        {
+            time = 0;
+        }
+
+        if (rigidbody != null && transform.parent != null)
+        {
+            Destroy(rigidbody);
         }
     }
 
@@ -33,7 +57,7 @@ public class DragGameSprite : MonoBehaviour
     void OnMouseDown()
     {
        // may want to set velocity to 0
-        if(Input.GetMouseButtonDown(0))
+        if(_tool._state == State.Hand && Input.GetMouseButtonDown(0))
         {
             rigidbody.velocity = Vector2.zero;
             CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -45,7 +69,7 @@ public class DragGameSprite : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Core")
+        if (_tool._state == State.Hand && collision.gameObject.tag == "Core")
         {
             EndBeingHeld();
         }
@@ -53,7 +77,7 @@ public class DragGameSprite : MonoBehaviour
 
     void OnMouseUp()
     {
-        EndBeingHeld();
+        if (_tool._state == State.Hand) EndBeingHeld();
     }
 
     void EndBeingHeld()
@@ -63,6 +87,11 @@ public class DragGameSprite : MonoBehaviour
         MousePosDifference.Normalize();
         rigidbody.AddForce(MousePosDifference * driftMultiplier);
         isBeingHeld = false;
+    }
+
+    void AttachToAnother(GameObject gameObject)
+    {
+
     }
 
   

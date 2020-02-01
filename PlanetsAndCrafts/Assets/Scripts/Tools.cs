@@ -108,12 +108,10 @@ public class Tools : MonoBehaviour
 
     private void HandUp()
     {
-        throw new NotImplementedException();
     }
 
     private void HandDown()
     {
-        throw new NotImplementedException();
     }
 
     private void StaplerUp()
@@ -127,7 +125,16 @@ public class Tools : MonoBehaviour
         Collider2D second = Physics2D.OverlapCircle(transform.TransformPoint(Vector3.down * 0.25f), 0.1f, _toolHits);
         if (first && second && first != second)
         {
-            Debug.Log("Hit " + first.name + " and " + second.name);
+            if (second.tag == "Core")
+            {
+                first.gameObject.transform.parent = second.gameObject.transform;
+            }
+            Transform temp = second.transform;
+            while (temp.parent != null)
+            {
+                temp = temp.parent;
+            }
+            temp.parent = first.transform;
         }
     }
 
