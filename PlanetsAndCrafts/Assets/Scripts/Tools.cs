@@ -10,10 +10,13 @@ public class Tools : MonoBehaviour
     public SpriteRenderer _renderer;
     public Sprite _mouse;
     public GameObject _stapler;
-    public Sprite _tape;
-    public Sprite _glue;
-    public Sprite _pipeCleaner;
-    public Sprite _sillyString;
+    public GameObject _tapeTool;
+    public GameObject _tapeProto;
+    public GameObject _tape;
+    public SpriteRenderer _tapeRenderer;
+    public GameObject _glueBottle;
+    public GameObject _glue;
+
 
     public State _state;
 
@@ -105,7 +108,10 @@ public class Tools : MonoBehaviour
 
         if (_taping)
         {
-
+            _tapeEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float tapeLength = Vector2.Distance(_tapeBegin, _tapeEnd);
+            _tape.transform.rotation = Quaternion.Euler(0, 0, -Vector2.SignedAngle(_tapeEnd, _tapeBegin));
+            _tapeRenderer.size = new Vector2(.5f,tapeLength);
         }
 
     }
@@ -180,11 +186,21 @@ public class Tools : MonoBehaviour
     {
         _toolReady = true;
         _taping = false;
+        float dist = Vector2.Distance(_tapeBegin, _tapeEnd);
+        RaycastHit2D[] collisions = Physics2D.BoxCastAll(_tapeBegin, Vector2.one, 0, _tapeEnd - _tapeBegin, dist, _toolHits);
     }
 
     private void TapeDown()
     {
-        _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (_toolReady)
+        {
+            _taping = true;
+            _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _tape = Instantiate(_tapeProto);
+            _tapeRenderer = _tape.GetComponent<SpriteRenderer>();
+            _tape.SetActive(true);
+            _tape.transform.position = _tapeBegin;
+        }
         _toolReady = false;
     }
 
@@ -195,7 +211,50 @@ public class Tools : MonoBehaviour
 
     private void GlueDown()
     {
-        throw new NotImplementedException();
+        if (_toolReady)
+        {
+            int firstBigBoi = -1;
+            Core core;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f, _toolHits);
+            if (colliders.Length > 1)
+            {
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    Core temp = colliders[i].GetComponent<Core>();
+                    if (temp && temp.ReturnTopParent().tag == "Core")
+                    {
+                        firstBigBoi = i;
+                        Debug.Log("Plant is in in group: " + firstBigBoi);
+                        break;
+                    }
+                }
+                if (firstBigBoi >= 0)
+                {
+                    core = colliders[firstBigBoi].GetComponent<Core>().ReturnTopParent().GetComponent<Core>();
+                    for (int i = 0; i < colliders.Length; i++)
+                    {
+                        GameObject temp = colliders[i].GetComponent<Core>().ReturnTopParent();
+                        if (firstBigBoi >= 0 && i != firstBigBoi && temp.tag != "Core")
+                        {
+                            temp.transform.parent = core.transform;
+                            temp.GetComponent<DragGameSprite>().AttachNewBody(core.rigidbody);
+                        }
+                    }
+                }
+                else
+                {
+                    DragGameSprite newParent = colliders[0].GetComponent<DragGameSprite>();
+                    for (int i = 1; i < colliders.Length; i++)
+                    {
+                        DragGameSprite temp = colliders[i].GetComponent<DragGameSprite>().ReturnTopSprite();
+                        temp.transform.parent = newParent.transform;
+                        temp.AttachNewBody(newParent.rigidbody);
+                    }
+                }
+            }
+            else Debug.Log("one or fewer");
+        }
+        _toolReady = false;
     }
 
     private void GooglyEyesUp()
@@ -227,10 +286,10 @@ public class Tools : MonoBehaviour
                 _stapler.SetActive(false);
                 break;
             case State.Tape:
-                _renderer.sprite = _tape;
+                _tapeTool.SetActive(false);
                 break;
             case State.Glue:
-                _renderer.sprite = _glue;
+                _glueBottle.SetActive(false);
                 break;
             case State.GooglyEyes:
                 _renderer.sprite = _googlyEyes;
@@ -249,10 +308,10 @@ public class Tools : MonoBehaviour
                 _stapler.SetActive(true);
                 break;
             case State.Tape:
-                _renderer.sprite = _tape;
+                _tapeTool.SetActive(true);
                 break;
             case State.Glue:
-                _renderer.sprite = _glue;
+                _glueBottle.SetActive(true);
                 break;
             case State.GooglyEyes:
                 _renderer.sprite = _googlyEyes;
