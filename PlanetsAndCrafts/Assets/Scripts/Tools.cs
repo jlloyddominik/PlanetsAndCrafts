@@ -15,7 +15,9 @@ public class Tools : MonoBehaviour
     public GameObject _tape;
     public SpriteRenderer _tapeRenderer;
     public GameObject _glueBottle;
+    public GameObject _glueProto;
     public GameObject _glue;
+    public SpriteRenderer _glueRenderer;
 
 
     public State _state;
@@ -240,6 +242,12 @@ public class Tools : MonoBehaviour
                             temp.GetComponent<DragGameSprite>().AttachNewBody(core.rigidbody);
                         }
                     }
+                    _glue = Instantiate(_glueProto);
+                    _glue.SetActive(true);
+                    Vector3 gluepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    gluepos.z = 0;
+                    _glue.transform.position = gluepos;
+                    _glue.transform.parent = core.transform;
                 }
                 else
                 {
@@ -250,6 +258,12 @@ public class Tools : MonoBehaviour
                         temp.transform.parent = newParent.transform;
                         temp.AttachNewBody(newParent.rigidbody);
                     }
+                    _glue = Instantiate(_glueProto);
+                    _glue.SetActive(true);
+                    Vector3 gluepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    gluepos.z = 0;
+                    _glue.transform.position = gluepos;
+                    _glue.transform.parent = newParent.transform;
                 }
             }
             else Debug.Log("one or fewer");

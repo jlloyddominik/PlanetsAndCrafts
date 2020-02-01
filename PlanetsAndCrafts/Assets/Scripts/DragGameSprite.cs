@@ -106,7 +106,10 @@ public class DragGameSprite : Core
         }
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<DragGameSprite>().AttachNewBody(body);
+            if (transform.GetChild(i).tag == "Piece")
+            {
+                transform.GetChild(i).GetComponent<DragGameSprite>().AttachNewBody(body);
+            }
         }
     }
 
