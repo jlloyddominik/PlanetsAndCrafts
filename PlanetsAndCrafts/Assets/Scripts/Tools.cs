@@ -35,6 +35,10 @@ public class Tools : MonoBehaviour
     public LayerMask _toolHits;
     private Sprite _googlyEyes;
 
+    public Vector2 _tapeBegin;
+    public Vector2 _tapeEnd;
+    public bool _taping;
+
     private void Update()
     {
         previousPos = currentPos;
@@ -98,6 +102,11 @@ public class Tools : MonoBehaviour
         }
 
         #endregion
+
+        if (_taping)
+        {
+
+        }
 
     }
 
@@ -170,11 +179,13 @@ public class Tools : MonoBehaviour
     private void TapeUp()
     {
         _toolReady = true;
+        _taping = false;
     }
 
     private void TapeDown()
     {
-        throw new NotImplementedException();
+        _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _toolReady = false;
     }
 
     private void GlueUp()
@@ -200,7 +211,7 @@ public class Tools : MonoBehaviour
         Deactivate(_state);
         int temp = (int)_state;
         temp++;
-        temp %= 6;
+        temp %= 4;
         _state = (State)temp;
         Activate(_state);
     }
