@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 68a179a4c60f14946af0e0b90cf7e44f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Stars: {fileID: 2800000, guid: 40fa43cc81a995040933772989cc8371, type: 3}
+  - _BaseNoise: {fileID: 2800000, guid: 7957ad1f2dd573844b3419c04f0618e5, type: 3}
+  - _Distort: {fileID: 2800000, guid: 176ca917c22625f47997eded282abbcf, type: 3}
+  - _SecNoise: {fileID: 2800000, guid: 7d6776d562112b74a81594395d0f9478, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
