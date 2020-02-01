@@ -35,6 +35,10 @@ public class Tools : MonoBehaviour
     public LayerMask _toolHits;
     private Sprite _googlyEyes;
 
+    public Vector2 _tapeBegin;
+    public Vector2 _tapeEnd;
+    public bool _taping;
+
     private void Update()
     {
         previousPos = currentPos;
@@ -99,6 +103,11 @@ public class Tools : MonoBehaviour
 
         #endregion
 
+        if (_taping)
+        {
+
+        }
+
     }
 
 
@@ -119,32 +128,50 @@ public class Tools : MonoBehaviour
     {
         Collider2D first = Physics2D.OverlapCircle(transform.TransformPoint(Vector3.up * 0.25f), 0.1f, _toolHits);
         Collider2D second = Physics2D.OverlapCircle(transform.TransformPoint(Vector3.down * 0.25f), 0.1f, _toolHits);
-        if (first && second && first != second)
+        Core firstTest = first.gameObject.GetComponent<Core>();
+        Core secondTest = second.gameObject.GetComponent<Core>();
+        if (firstTest.ReturnTopParent().tag != "Core" || secondTest.ReturnTopParent().tag != "Core")
         {
-            GameObject firstObject = first.gameObject;
-            GameObject secondObject = second.gameObject;
-            if (first.GetComponent<DragGameSprite>().CheckForCore())
+            if (first && second && first != second)
             {
-                if (first.tag == "Core") secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = first.transform;
+                DragGameSprite firstObject = first.gameObject.GetComponent<DragGameSprite>();
+                DragGameSprite secondObject = second.gameObject.GetComponent<DragGameSprite>();
+                if (first.tag == "Core" || firstObject.CheckForCore())
+                {
+                    if (first.tag == "Core")
+                    {
+                        secondObject.ReturnTopParent().transform.parent = first.transform;
+                        first.GetComponent<Core>().SetAllChildren();
+                    }
+                    else
+                    {
+                        secondObject.ReturnTopParent().transform.parent = firstObject.ReturnTopParent().transform;
+                        firstObject.ReturnTopParent().GetComponent<Core>().SetAllChildren();
+
+                    }
+                }
+                else if (second.tag == "Core" || second.GetComponent<DragGameSprite>().CheckForCore())
+                {
+                    if (second.tag == "Core")
+                    {
+                        firstObject.ReturnTopParent().transform.parent = second.transform;
+                        second.GetComponent<Core>().SetAllChildren();
+                        Debug.Log("got to if");
+                    }
+                    else
+                    {
+                        firstObject.ReturnTopParent().transform.parent = secondObject.ReturnTopParent().transform;
+                        Debug.Log("got to else");
+                        secondObject.ReturnTopParent().GetComponent<Core>().SetAllChildren();
+                    }
+                }
                 else
                 {
-                    secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform;
+                    firstObject.ReturnTopParent().transform.parent = secondObject.ReturnTopParent().transform;
+                    DragGameSprite top = secondObject.ReturnTopParent().GetComponent<DragGameSprite>();
+                    top.AttachNewBody(top.rigidbody);
                 }
-                firstObject.GetComponent<DragGameSprite>().ReturnTopParent().GetComponent<Core>().SetAllChildren();
-            }
-            else if (second.GetComponent<DragGameSprite>().CheckForCore())
-            {
-                if (second.tag == "Core") firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = second.transform;
-                else
-                {
-                    firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform;
-                }
-                secondObject.GetComponent<DragGameSprite>().ReturnTopParent().GetComponent<Core>().SetAllChildren();
-            }
-            else
-            {
-                firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform;
-                //second.
+                // Spawn a staple;
             }
         }
     }
@@ -152,11 +179,13 @@ public class Tools : MonoBehaviour
     private void TapeUp()
     {
         _toolReady = true;
+        _taping = false;
     }
 
     private void TapeDown()
     {
-        throw new NotImplementedException();
+        _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _toolReady = false;
     }
 
     private void GlueUp()
@@ -182,7 +211,7 @@ public class Tools : MonoBehaviour
         Deactivate(_state);
         int temp = (int)_state;
         temp++;
-        temp %= 6;
+        temp %= 4;
         _state = (State)temp;
         Activate(_state);
     }
