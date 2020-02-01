@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Core
   - Piece
+  - Main Menu
+  - Confirm Menu
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - 
   - 
   - Pieces
-  - 
+  - Main Menu
   - 
   - 
   - 
