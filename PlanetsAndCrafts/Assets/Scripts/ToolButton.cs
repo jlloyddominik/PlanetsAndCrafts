@@ -30,7 +30,6 @@ public class ToolButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     void ChangeTool()
     {
-        Debug.Log("clicked");
         tool.ChangeTool();
         button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
     }

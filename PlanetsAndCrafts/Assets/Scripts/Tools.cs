@@ -201,32 +201,44 @@ public class Tools : MonoBehaviour
         {
             int firstBigBoi = -1;
             Core core;
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f);
-            for (int i = 0; i < colliders.Length; i++)
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f, _toolHits);
+            if (colliders.Length > 1)
             {
-                Core temp = colliders[i].GetComponent<Core>();
-                if (temp && temp.ReturnTopParent().tag == "Core")
-                {
-                    firstBigBoi = i;
-                    break;
-                }
-            }
-            if (firstBigBoi >= 0)
-            {
-                core = colliders[firstBigBoi].GetComponent<Core>().ReturnTopParent().GetComponent<Core>();
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    GameObject temp = colliders[i].GetComponent<Core>().ReturnTopParent();
-                    if (firstBigBoi >= 0 && i != firstBigBoi && temp.tag != "Core")
+                    Core temp = colliders[i].GetComponent<Core>();
+                    if (temp && temp.ReturnTopParent().tag == "Core")
                     {
-                        temp.GetComponent<DragGameSprite>().AttachNewBody(core.rigidbody);
+                        firstBigBoi = i;
+                        Debug.Log("Plant is in in group: " + firstBigBoi);
+                        break;
+                    }
+                }
+                if (firstBigBoi >= 0)
+                {
+                    core = colliders[firstBigBoi].GetComponent<Core>().ReturnTopParent().GetComponent<Core>();
+                    for (int i = 0; i < colliders.Length; i++)
+                    {
+                        GameObject temp = colliders[i].GetComponent<Core>().ReturnTopParent();
+                        if (firstBigBoi >= 0 && i != firstBigBoi && temp.tag != "Core")
+                        {
+                            temp.transform.parent = core.transform;
+                            temp.GetComponent<DragGameSprite>().AttachNewBody(core.rigidbody);
+                        }
+                    }
+                }
+                else
+                {
+                    DragGameSprite newParent = colliders[0].GetComponent<DragGameSprite>();
+                    for (int i = 1; i < colliders.Length; i++)
+                    {
+                        DragGameSprite temp = colliders[i].GetComponent<DragGameSprite>().ReturnTopSprite();
+                        temp.transform.parent = newParent.transform;
+                        temp.AttachNewBody(newParent.rigidbody);
                     }
                 }
             }
-            else
-            {
-                DragGameSprite newParent = 
-            }
+            else Debug.Log("one or fewer");
         }
         _toolReady = false;
     }

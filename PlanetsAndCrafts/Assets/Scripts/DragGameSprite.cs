@@ -109,4 +109,12 @@ public class DragGameSprite : Core
             transform.GetChild(i).GetComponent<DragGameSprite>().AttachNewBody(body);
         }
     }
+
+    public DragGameSprite ReturnTopSprite()
+    {
+        Transform temp = transform;
+        while (temp.parent != null) temp = temp.parent;
+        DragGameSprite top = temp.GetComponent<DragGameSprite>();
+        return top;
+    }
 }
