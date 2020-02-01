@@ -43,15 +43,26 @@ public class DragGameSprite : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Core")
+        {
+            EndBeingHeld();
+        }
+    }
+
     void OnMouseUp()
+    {
+        EndBeingHeld();
+    }
+
+    void EndBeingHeld()
     {
         CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         MousePosDifference = CurrentMousePos - PreviousMousePos;
         MousePosDifference.Normalize();
         rigidbody.AddForce(MousePosDifference * driftMultiplier);
-
         isBeingHeld = false;
-   
     }
 
   
