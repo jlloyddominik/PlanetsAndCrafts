@@ -105,7 +105,7 @@ public class Tools : MonoBehaviour
 
         if (_taping)
         {
-
+            _tapeEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 
     }
@@ -180,6 +180,8 @@ public class Tools : MonoBehaviour
     {
         _toolReady = true;
         _taping = false;
+        float dist = Vector2.Distance(_tapeBegin, _tapeEnd);
+        RaycastHit2D[] collisions = Physics2D.BoxCastAll(_tapeBegin, Vector2.one, 0, _tapeEnd - _tapeBegin, dist, _toolHits);
     }
 
     private void TapeDown()
@@ -195,7 +197,38 @@ public class Tools : MonoBehaviour
 
     private void GlueDown()
     {
-        throw new NotImplementedException();
+        if (_toolReady)
+        {
+            int firstBigBoi = -1;
+            Core core;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                Core temp = colliders[i].GetComponent<Core>();
+                if (temp && temp.ReturnTopParent().tag == "Core")
+                {
+                    firstBigBoi = i;
+                    break;
+                }
+            }
+            if (firstBigBoi >= 0)
+            {
+                core = colliders[firstBigBoi].GetComponent<Core>().ReturnTopParent().GetComponent<Core>();
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    GameObject temp = colliders[i].GetComponent<Core>().ReturnTopParent();
+                    if (firstBigBoi >= 0 && i != firstBigBoi && temp.tag != "Core")
+                    {
+                        temp.GetComponent<DragGameSprite>().AttachNewBody(core.rigidbody);
+                    }
+                }
+            }
+            else
+            {
+                DragGameSprite newParent = 
+            }
+        }
+        _toolReady = false;
     }
 
     private void GooglyEyesUp()
