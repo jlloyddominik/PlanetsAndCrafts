@@ -89,10 +89,35 @@ public class DragGameSprite : MonoBehaviour
         isBeingHeld = false;
     }
 
-    void AttachToAnother(GameObject gameObject)
+    public bool CheckForCore()
     {
-
+        Transform temp = transform;
+        if (temp.tag == "Core") return true;
+        while (temp.parent != null)
+        {
+            if (temp.parent.tag == "Core") return true;
+            temp = temp.parent;
+        }
+        return false;
     }
 
-  
+    public void AttachNewBody(Rigidbody2D body)
+    {
+        if (transform.parent != null)
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
+            rigidbody = body;
+        }
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<DragGameSprite>().AttachNewBody(body);
+        }
+    }
+
+    public GameObject ReturnTopParent()
+    {
+        Transform temp = transform;
+        while (temp.parent != null) temp = temp.parent;
+        return temp.gameObject;
+    }
 }
