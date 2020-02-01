@@ -5,11 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Core
-<<<<<<< HEAD
-  - Pieces
-=======
   - Piece
->>>>>>> 3de8c835b995e686c459a880aeb39a742ab3e7e3
   layers:
   - Default
   - TransparentFX
