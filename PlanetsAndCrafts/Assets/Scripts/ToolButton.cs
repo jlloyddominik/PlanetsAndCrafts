@@ -8,11 +8,13 @@ public class ToolButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     public Tools tool;
     public Button button;
+    public Sprite[] buttonIcons;
+    
     // Start is called before the first frame update
 
     private void Start()
     {
-        button.onClick.AddListener(tool.ChangeTool);
+        button.onClick.AddListener(ChangeTool);
     }
 
 
@@ -30,6 +32,8 @@ public class ToolButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         Debug.Log("clicked");
         tool.ChangeTool();
+        button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
     }
+    
     
 }
