@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DragGameSprite : MonoBehaviour
+public class DragGameSprite : Core
 {
     private float startPosY, startPosX;
     private bool isBeingHeld = false;
     private Vector2 PreviousMousePos, CurrentMousePos, MousePosDifference;
-    public Rigidbody2D rigidbody;
     public float driftMultiplier = 25f;
     public float lerpMultiplierMin = 1f;
     public float lerpMultiplierMax = 10f;
@@ -18,11 +17,12 @@ public class DragGameSprite : MonoBehaviour
 
     private void Start()
     {
-        GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
-        if (gameObject)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
         {
-            _tool = gameObject.GetComponent<Tools>();
+            _tool = player.GetComponent<Tools>();
         }
+        if (rigidbody == null) rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -45,11 +45,6 @@ public class DragGameSprite : MonoBehaviour
         else
         {
             time = 0;
-        }
-
-        if (rigidbody != null && transform.parent != null)
-        {
-            Destroy(rigidbody);
         }
     }
 
@@ -105,19 +100,13 @@ public class DragGameSprite : MonoBehaviour
     {
         if (transform.parent != null)
         {
-            GetComponent<Rigidbody2D>().simulated = false;
+            Rigidbody2D bodywody = GetComponent<Rigidbody2D>();
+            if (bodywody) Destroy(bodywody);
             rigidbody = body;
         }
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).GetComponent<DragGameSprite>().AttachNewBody(body);
         }
-    }
-
-    public GameObject ReturnTopParent()
-    {
-        Transform temp = transform;
-        while (temp.parent != null) temp = temp.parent;
-        return temp.gameObject;
     }
 }

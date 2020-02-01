@@ -37,4 +37,11 @@ public class Core : MonoBehaviour
             transform.GetChild(i).GetComponent<DragGameSprite>().AttachNewBody(rigidbody);
         }
     }
+
+    public GameObject ReturnTopParent()
+    {
+        Transform temp = transform;
+        while (temp.parent != null) temp = temp.parent;
+        return temp.gameObject;
+    }
 }
