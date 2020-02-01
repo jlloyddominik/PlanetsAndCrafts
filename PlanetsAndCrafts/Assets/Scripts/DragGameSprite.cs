@@ -7,35 +7,52 @@ public class DragGameSprite : MonoBehaviour
 {
     private float startPosY, startPosX;
     private bool isBeingHeld = false;
+    private Vector2 PreviousMousePos, CurrentMousePos, MousePosDifference;
+    public Rigidbody2D rigidbody;
+    public float driftMultiplier = 25f;
+
+    
 
     private void Update()
     {
-        if(isBeingHeld == true)
+        //Debug.Log("currentmouse"+CurrentMousePos.ToString());
+        //Debug.Log("previousmouse"+PreviousMousePos.ToString());
+        //Debug.Log("object"+this.transform.position.ToString());
+        
+       
+
+        if (isBeingHeld == true)
         {
-            Vector3 mousePos;
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            this.gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0);
+            PreviousMousePos = CurrentMousePos;
+            CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            this.gameObject.transform.position = new Vector2(CurrentMousePos.x + startPosX, CurrentMousePos.y + startPosY);
         }
     }
 
     
     void OnMouseDown()
     {
-       
+       // may want to set velocity to 0
         if(Input.GetMouseButtonDown(0))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            startPosX = mousePos.x - transform.localPosition.x;
-            startPosY = mousePos.y - transform.localPosition.y;
-
+            rigidbody.velocity = Vector2.zero;
+            CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            startPosX = CurrentMousePos.x - transform.position.x;
+            startPosY = CurrentMousePos.y - transform.position.y;
             isBeingHeld = true;
         }
     }
 
-    
     void OnMouseUp()
     {
+        CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        MousePosDifference = CurrentMousePos - PreviousMousePos;
+        MousePosDifference.Normalize();
+        rigidbody.AddForce(MousePosDifference * driftMultiplier);
+
         isBeingHeld = false;
+   
     }
+
+  
 }
