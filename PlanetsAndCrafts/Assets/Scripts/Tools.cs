@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { Hand, Stapler, Tape, Glue, PipeCleaner, SillyString}
+public enum State { Hand, Stapler, Tape, Glue, GooglyEyes}
 
 public class Tools : MonoBehaviour
 {
@@ -33,6 +33,7 @@ public class Tools : MonoBehaviour
     public bool _toolReady = true;
 
     public LayerMask _toolHits;
+    private Sprite _googlyEyes;
 
     private void Update()
     {
@@ -67,11 +68,8 @@ public class Tools : MonoBehaviour
                         case State.Glue:
                             GlueDown();
                             break;
-                        case State.PipeCleaner:
-                            PipeCleanerDown();
-                            break;
-                        case State.SillyString:
-                            SillyStringDown();
+                        case State.GooglyEyes:
+                            GooglyEyesDown();
                             break;
                     }
             }
@@ -92,11 +90,8 @@ public class Tools : MonoBehaviour
                     case State.Glue:
                         GlueUp();
                         break;
-                    case State.PipeCleaner:
-                        PipeCleanerUp();
-                        break;
-                    case State.SillyString:
-                        SillyStringUp();
+                    case State.GooglyEyes:
+                        GooglyEyesUp();
                         break;
                 }
             }
@@ -106,14 +101,13 @@ public class Tools : MonoBehaviour
 
     }
 
+
     private void HandUp()
     {
-        throw new NotImplementedException();
     }
 
     private void HandDown()
     {
-        throw new NotImplementedException();
     }
 
     private void StaplerUp()
@@ -127,7 +121,31 @@ public class Tools : MonoBehaviour
         Collider2D second = Physics2D.OverlapCircle(transform.TransformPoint(Vector3.down * 0.25f), 0.1f, _toolHits);
         if (first && second && first != second)
         {
-            Debug.Log("Hit " + first.name + " and " + second.name);
+            GameObject firstObject = first.gameObject;
+            GameObject secondObject = second.gameObject;
+            if (first.GetComponent<DragGameSprite>().CheckForCore())
+            {
+                if (first.tag == "Core") secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = first.transform;
+                else
+                {
+                    secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform;
+                }
+                firstObject.GetComponent<DragGameSprite>().ReturnTopParent().GetComponent<Core>().SetAllChildren();
+            }
+            else if (second.GetComponent<DragGameSprite>().CheckForCore())
+            {
+                if (second.tag == "Core") firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = second.transform;
+                else
+                {
+                    firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform;
+                }
+                secondObject.GetComponent<DragGameSprite>().ReturnTopParent().GetComponent<Core>().SetAllChildren();
+            }
+            else
+            {
+                firstObject.GetComponent<DragGameSprite>().ReturnTopParent().transform.parent = secondObject.GetComponent<DragGameSprite>().ReturnTopParent().transform;
+                //second.
+            }
         }
     }
 
@@ -151,25 +169,11 @@ public class Tools : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void PipeCleanerUp()
-    {
-        throw new NotImplementedException();
-    }
+    private void GooglyEyesUp()
+    { }
 
-    private void PipeCleanerDown()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void SillyStringUp()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void SillyStringDown()
-    {
-        throw new NotImplementedException();
-    }
+    private void GooglyEyesDown()
+    { }
 
 
 
@@ -199,11 +203,8 @@ public class Tools : MonoBehaviour
             case State.Glue:
                 _renderer.sprite = _glue;
                 break;
-            case State.PipeCleaner:
-                _renderer.sprite = _pipeCleaner;
-                break;
-            case State.SillyString:
-                _renderer.sprite = _sillyString;
+            case State.GooglyEyes:
+                _renderer.sprite = _googlyEyes;
                 break;
         }
     }
@@ -224,15 +225,10 @@ public class Tools : MonoBehaviour
             case State.Glue:
                 _renderer.sprite = _glue;
                 break;
-            case State.PipeCleaner:
-                _renderer.sprite = _pipeCleaner;
-                break;
-            case State.SillyString:
-                _renderer.sprite = _sillyString;
+            case State.GooglyEyes:
+                _renderer.sprite = _googlyEyes;
                 break;
         }
     }
-
-
 
 }

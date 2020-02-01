@@ -29,4 +29,12 @@ public class Core : MonoBehaviour
             //transform.position = Vector2.MoveTowards(currentPos, Vector2.Lerp(currentPos, originPos,step), step);
         }
     }
+
+    public void SetAllChildren()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<DragGameSprite>().AttachNewBody(rigidbody);
+        }
+    }
 }
