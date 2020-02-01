@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3780996728191041859}
   - component: {fileID: 3780996728191041857}
   - component: {fileID: 3780996728191041858}
-  m_Layer: 0
+  - component: {fileID: 1407009919055279443}
+  m_Layer: 8
   m_Name: obj_Dronks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3780996728191041860}
-  m_LocalRotation: {x: -0.70277256, y: 0.07755558, z: 0.07864562, w: 0.7027878}
-  m_LocalPosition: {x: -8.032064, y: 0.2770283, z: -2.1565611}
+  m_LocalRotation: {x: 0, y: 0, z: 0.11120874, w: 0.99379706}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 99.99999, y: 100, z: 23.189837}
   m_Children: []
   m_Father: {fileID: 3780996728244020327}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 12.77}
 --- !u!33 &3780996728191041857
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -79,6 +80,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!60 &1407009919055279443
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3780996728191041860}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.0057631764, y: 0.007985962}
+      - {x: -0.00028598742, y: 0.009952703}
+      - {x: -0.012243216, y: 0.007985217}
+      - {x: -0.01562518, y: 0.0051874877}
+      - {x: -0.015673662, y: 0.0031055182}
+      - {x: -0.005704683, y: -0.008125082}
+      - {x: 0.000040314797, y: -0.009921476}
+      - {x: 0.005819888, y: -0.008059626}
+      - {x: 0.009550035, y: -0.0029885536}
+      - {x: 0.009596026, y: 0.0030491857}
 --- !u!1 &3780996728244020328
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3780996728244020327}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: obj_Dronk_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
