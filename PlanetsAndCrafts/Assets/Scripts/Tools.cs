@@ -10,10 +10,13 @@ public class Tools : MonoBehaviour
     public SpriteRenderer _renderer;
     public Sprite _mouse;
     public GameObject _stapler;
-    public Sprite _tape;
-    public Sprite _glue;
-    public Sprite _pipeCleaner;
-    public Sprite _sillyString;
+    public GameObject _tapeTool;
+    public GameObject _tapeProto;
+    public GameObject _tape;
+    public SpriteRenderer _tapeRenderer;
+    public GameObject _glueBottle;
+    public GameObject _glue;
+
 
     public State _state;
 
@@ -106,6 +109,9 @@ public class Tools : MonoBehaviour
         if (_taping)
         {
             _tapeEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float tapeLength = Vector2.Distance(_tapeBegin, _tapeEnd);
+            _tape.transform.rotation = Quaternion.Euler(0, 0, -Vector2.SignedAngle(_tapeEnd, _tapeBegin));
+            _tapeRenderer.size = new Vector2(.5f,tapeLength);
         }
 
     }
@@ -186,7 +192,15 @@ public class Tools : MonoBehaviour
 
     private void TapeDown()
     {
-        _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (_toolReady)
+        {
+            _taping = true;
+            _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _tape = Instantiate(_tapeProto);
+            _tapeRenderer = _tape.GetComponent<SpriteRenderer>();
+            _tape.SetActive(true);
+            _tape.transform.position = _tapeBegin;
+        }
         _toolReady = false;
     }
 
@@ -272,10 +286,10 @@ public class Tools : MonoBehaviour
                 _stapler.SetActive(false);
                 break;
             case State.Tape:
-                _renderer.sprite = _tape;
+                _tapeTool.SetActive(false);
                 break;
             case State.Glue:
-                _renderer.sprite = _glue;
+                _glueBottle.SetActive(false);
                 break;
             case State.GooglyEyes:
                 _renderer.sprite = _googlyEyes;
@@ -294,10 +308,10 @@ public class Tools : MonoBehaviour
                 _stapler.SetActive(true);
                 break;
             case State.Tape:
-                _renderer.sprite = _tape;
+                _tapeTool.SetActive(true);
                 break;
             case State.Glue:
-                _renderer.sprite = _glue;
+                _glueBottle.SetActive(true);
                 break;
             case State.GooglyEyes:
                 _renderer.sprite = _googlyEyes;
