@@ -20,14 +20,15 @@ public class ChonksWhole : MonoBehaviour
         bool chonksComplete = true;
         foreach (DragGameSprite chonk in chonks)
         {
-            if (chonk.ReturnTopParent().tag != "core")
+            if (chonk.ReturnTopParent().tag != "Core")
             {
                 chonksComplete = false;
             }  
-            if (chonksComplete)
-            {
-                Debug.Log("CHONKS COMPLETE!");
-            }
+
+        }
+        if (chonksComplete == true)
+        {
+            Debug.Log("CHONKS COMPLETE!");
         }
     }
 }
