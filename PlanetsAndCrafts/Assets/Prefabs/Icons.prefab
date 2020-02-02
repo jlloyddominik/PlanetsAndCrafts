@@ -149,10 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -320,3 +320,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 0}
   button: {fileID: 535582916859780671}
+  buttonIcons:
+  - {fileID: 21300000, guid: 22a2511f26c14a947a797e35dbfffdba, type: 3}
+  - {fileID: 21300000, guid: eddee1390c25ca9459001db1010b35de, type: 3}
+  - {fileID: 21300000, guid: e96849a5a82fa424c833fdc4604c863f, type: 3}
+  - {fileID: 21300000, guid: 182260c6a566ca748a243ee56ba83955, type: 3}
+  - {fileID: 21300000, guid: 6f1a4b549f7efa841ae41c655023dda0, type: 3}
