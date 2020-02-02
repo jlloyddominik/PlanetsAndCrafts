@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2246333359866244514}
   - component: {fileID: 2246333359866244515}
   - component: {fileID: 1832226740637242337}
+  - component: {fileID: 2575222238865711038}
   m_Layer: 8
   m_Name: obj_Chonks
   m_TagString: Untagged
@@ -112,6 +113,26 @@ PolygonCollider2D:
       - {x: -0.002680117, y: -0.011274061}
       - {x: 0.008008802, y: -0.00908497}
       - {x: 0.012254796, y: 0.004342751}
+--- !u!114 &2575222238865711038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246333359866244517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2c402662c89804d960fe2323e66174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  driftThreshhold: 10
+  rigidbody: {fileID: 0}
+  driftMultiplier: 25
+  lerpMultiplierMin: 1
+  lerpMultiplierMax: 10
+  time: 0
+  _tool: {fileID: 0}
 --- !u!1 &2246333361719238747
 GameObject:
   m_ObjectHideFlags: 0
