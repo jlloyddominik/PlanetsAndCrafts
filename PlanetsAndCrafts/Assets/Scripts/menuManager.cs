@@ -61,6 +61,7 @@ public class menuManager : MonoBehaviour
 
 		hidePlayer();
 		hideConfirm();
+		hideCredits();
 	}
 
 	//hides objects with Main Menu tag
@@ -81,6 +82,8 @@ public class menuManager : MonoBehaviour
 		{
 			g.SetActive(true);
 		}
+
+		hidePlayer();
 	}
 
 	//hides objects with Confirm tag
@@ -99,6 +102,8 @@ public class menuManager : MonoBehaviour
 		{
 			g.SetActive(true);
 		}
+
+		hideMenu();
 	}
 
 	//hides objects with Credit tag
@@ -108,6 +113,8 @@ public class menuManager : MonoBehaviour
 		{
 			g.SetActive(false);
 		}
+
+		showMenu();
 	}
 
 	//hides objects with Player tag
