@@ -9,14 +9,33 @@ public class ChonkSpawner : MonoBehaviour
     public GameObject[] corkos = new GameObject[3];
     public GameObject[] bits = new GameObject[5];
 
+    public bool chonksSpawned = false;
+
     public void ChonksLoad()
     {
-        RandomiseBits();
+        SpawnBits(bits);
     }
 
     void Update()
     {
+        bool chonksComplete = true;
+        if (chonksSpawned)
+        {
+            foreach (GameObject b in bits)
+            {
 
+                if (b.tag == "Pieces" && b.GetComponent<Core>().ReturnTopParent().tag != "Core")
+                {
+                    chonksComplete = false;
+                }
+
+            }
+            if (chonksComplete == true)
+            {
+                Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition 
+
+            }
+        }
     }
 
     void RandomiseBits()
@@ -38,28 +57,7 @@ public class ChonkSpawner : MonoBehaviour
         }
 
         SpawnBits(bits);
-
-        CheckBits();
-    }
-
-    void CheckBits()
-    {
-        bool chonksComplete = true;
-
-        foreach (GameObject b in bits)
-        {
-
-            if (b.tag == "Pieces" && b.GetComponent<Core>().ReturnTopParent().tag != "Core")
-            {
-                chonksComplete = false;
-            }
-
-        }
-        if (chonksComplete == true)
-        {
-            Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition 
-
-        }
+        chonksSpawned = true;
     }
 
     void SpawnBits(GameObject[] bits)
@@ -68,7 +66,7 @@ public class ChonkSpawner : MonoBehaviour
         {
             Debug.Log("Chonk Spawned");
             GameObject go = Instantiate(b);
-            go.transform.position = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0);
+            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
         }
     }
 }
