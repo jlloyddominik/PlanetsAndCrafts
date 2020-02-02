@@ -53,6 +53,34 @@ public class Tools : MonoBehaviour
     public List<Sprite> _glueShapes;
     public List<Sprite> _tapeTypes;
 
+    AudioSource[] dronkAudio;
+    AudioSource[] chonkAudio;
+    AudioSource[] bigchonkAudio;
+    AudioSource[] tapeAudio;
+    AudioSource[] tapereactAudio;
+    AudioSource[] staplerAudio;
+    AudioSource[] staplerreactAudio;
+    AudioSource[] lavareactAudio;
+    AudioSource[] icereactAudio;
+    AudioSource[] hornAudio;
+    AudioSource[] hornreactAudio;
+    AudioSource[] handAudio;
+    AudioSource[] handreactAudio;
+    AudioSource[] glueAudio;
+    AudioSource[] gluereactAudio;
+    AudioSource[] bgreactAudio;
+
+    /*    
+    AudioSource audioData;
+
+    void Start()
+    {
+        audioData = GetComponent<AudioSource>();
+        audioData.Play(1);
+        Debug.Log("started");
+    }
+    */
+
     private void Update()
     {
         previousPos = currentPos;
