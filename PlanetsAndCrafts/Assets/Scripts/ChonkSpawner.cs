@@ -7,7 +7,7 @@ public class ChonkSpawner : MonoBehaviour
     public GameObject[] dronks = new GameObject[5];
     public GameObject[] chonks = new GameObject[6];
     public GameObject[] corkos = new GameObject[3];
-    public GameObject[] bits = new GameObject[5];
+    public GameObject[] bits = new GameObject[6];
 
 
     public bool chonksSpawned = false;
@@ -16,7 +16,9 @@ public class ChonkSpawner : MonoBehaviour
 
     public void ChonksLoad()
     {
-        SpawnBits(bits);
+        tool._state = State.Hand;
+        chonksSpawned = false;
+        RandomiseBits();
     }
 
     void Update()
@@ -27,7 +29,7 @@ public class ChonkSpawner : MonoBehaviour
             foreach (GameObject b in bits)
             {
 
-                if (b.tag == "Pieces" && b.GetComponent<Core>().ReturnTopParent().tag != "Core")
+                if (b.tag == "Piece" && b.GetComponent<Core>().ReturnTopParent().tag != "Core")
                 {
                     chonksComplete = false;
                 }
@@ -44,33 +46,39 @@ public class ChonkSpawner : MonoBehaviour
 
     void RandomiseBits()
     {
+        bits = new GameObject[6];
+        Debug.Log("Chonk Spawned");
+        GameObject go = Instantiate(corkos[Random.Range(0, 2)], new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0), Quaternion.identity);
+        bits[0] = go;
 
-        //add one corko
-        bits[0] = corkos[Random.Range(0, 2)];
+
+        for(int i = 1; i <3; i++)
+        {
+            go = Instantiate(chonks[Random.Range(0, 5)]);
+            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
+            bits[i] = go;
+        }
 
         //add three chonks
-        for(int i =1; i < 4; i++)
+        for(int i = 3; i < 6; i++)
         {
-            bits[i] = chonks[Random.Range(0, 5)];
+            go = Instantiate(dronks[Random.Range(0, 4)]);
+            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
+            bits[i] = go;
         }
 
-        //add 2 dronks
-        for (int i = 4; i < 5; i++)
-        {
-            bits[i] = dronks[Random.Range(0, 4)];
-        }
 
-        SpawnBits(bits);
+        //SpawnBits(bits);
         chonksSpawned = true;
     }
 
-    void SpawnBits(GameObject[] bits)
-    {
-        foreach (GameObject b in bits)
-        {
-            Debug.Log("Chonk Spawned");
-            GameObject go = Instantiate(b);
-            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
-        }
-    }
+    //void SpawnBits(GameObject[] bits)
+    //{
+    //    foreach (GameObject b in bits)
+    //    {
+    //        Debug.Log("Chonk Spawned");
+    //        GameObject go = Instantiate(b);
+    //        go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
+    //    }
+    //}
 }
