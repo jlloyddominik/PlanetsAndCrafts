@@ -13,6 +13,8 @@ public class Tools : MonoBehaviour
     public GameObject _tapeTool;
     public GameObject _tapeProto;
     public GameObject _tape;
+    public Vector3 _tapeToolOrigin;
+    public Vector3 _tapeToolRot;
     public SpriteRenderer _tapeRenderer;
     public GameObject _glueBottle;
     public GameObject _glueProto;
@@ -29,8 +31,8 @@ public class Tools : MonoBehaviour
     public Vector2 cur2;
     public Vector2 dif;
 
-    public float angle;
-    public float tempAngle;
+    float angle;
+    float tempAngle;
     public float rotSpeed;
 
     public bool _hovering;
@@ -42,7 +44,14 @@ public class Tools : MonoBehaviour
 
     public Vector2 _tapeBegin;
     public Vector2 _tapeEnd;
+    float anglebangle;
     public bool _taping;
+    public float _maxTapeLength;
+    public float _tapeFixMulti;
+
+    public List<Color> _colours;
+    public List<Sprite> _glueShapes;
+    public List<Sprite> _tapeTypes;
 
     private void Update()
     {
@@ -111,8 +120,21 @@ public class Tools : MonoBehaviour
         if (_taping)
         {
             _tapeEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            float tapeLength = Vector2.Distance(_tapeBegin, _tapeEnd);
-            _tape.transform.rotation = Quaternion.Euler(0, 0, -Vector2.SignedAngle(_tapeEnd, _tapeBegin));
+            if (Vector2.Distance(_tapeBegin,_tapeEnd) > _maxTapeLength)
+            {
+                _tapeEnd = _tapeEnd - _tapeBegin;
+                _tapeEnd.Normalize();
+                _tapeEnd *= _maxTapeLength;
+                _tapeEnd += _tapeBegin;
+                //toolPos = 2f * _tapeEnd;
+                //toolPos.z = -2f;
+            }
+            Vector3 toolPos = 2f * _tapeEnd;
+            float tapeLength = Mathf.Min(Vector2.Distance(_tapeBegin, _tapeEnd), _maxTapeLength);
+            anglebangle = -Vector2.SignedAngle(_tapeBegin, _tapeEnd);
+            _tape.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, _tapeEnd - _tapeBegin) - 90);
+            transform.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.right, _tapeEnd - _tapeBegin), Vector3.forward);
+            _tapeTool.transform.position = _tapeBegin + (_tapeEnd - _tapeBegin).normalized * ((tapeLength * 1.3f) + .9f);
             _tapeRenderer.size = new Vector2(.5f,tapeLength);
         }
 
@@ -186,10 +208,54 @@ public class Tools : MonoBehaviour
 
     private void TapeUp()
     {
+        _tapeTool.transform.parent = transform;
+        _tapeTool.transform.localPosition = _tapeToolOrigin;
+        _tapeTool.transform.localEulerAngles = _tapeToolRot;
         _toolReady = true;
         _taping = false;
-        float dist = Vector2.Distance(_tapeBegin, _tapeEnd);
+        float dist = Mathf.Min(Vector2.Distance(_tapeBegin, _tapeEnd),_maxTapeLength);
+        int firstBigBoi = -1;
+        Core core;
         RaycastHit2D[] collisions = Physics2D.BoxCastAll(_tapeBegin, Vector2.one, 0, _tapeEnd - _tapeBegin, dist, _toolHits);
+        if (collisions.Length > 1)
+        {
+            for (int i = 0; i < collisions.Length; i++)
+            {
+                Core temp = collisions[i].collider.GetComponent<Core>();
+                if (temp && temp.ReturnTopParent().tag == "Core")
+                {
+                    firstBigBoi = i;
+                    Debug.Log("Plant is in in group: " + firstBigBoi);
+                    break;
+                }
+            }
+            if (firstBigBoi >= 0)
+            {
+                core = collisions[firstBigBoi].collider.GetComponent<Core>().ReturnTopParent().GetComponent<Core>();
+                for (int i = 0; i < collisions.Length; i++)
+                {
+                    GameObject temp = collisions[i].collider.GetComponent<Core>().ReturnTopParent();
+                    if (firstBigBoi >= 0 && i != firstBigBoi && temp.tag != "Core")
+                    {
+                        temp.transform.parent = core.transform;
+                        temp.GetComponent<DragGameSprite>().AttachNewBody(core.rigidbody);
+                    }
+                    _tape.transform.parent = core.transform;
+                }
+            }
+            else
+            {
+                DragGameSprite newParent = collisions[0].collider.GetComponent<DragGameSprite>();
+                for (int i = 1; i < collisions.Length; i++)
+                {
+                    DragGameSprite temp = collisions[i].collider.GetComponent<DragGameSprite>().ReturnTopSprite();
+                    temp.transform.parent = newParent.transform;
+                    temp.AttachNewBody(newParent.rigidbody);
+                }
+                _tape.transform.parent = newParent.transform;
+            }
+        }
+
     }
 
     private void TapeDown()
@@ -200,6 +266,8 @@ public class Tools : MonoBehaviour
             _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _tape = Instantiate(_tapeProto);
             _tapeRenderer = _tape.GetComponent<SpriteRenderer>();
+            _tapeRenderer.sprite = _tapeTypes[0];
+            _tapeRenderer.color = _colours[0];
             _tape.SetActive(true);
             _tape.transform.position = _tapeBegin;
         }
