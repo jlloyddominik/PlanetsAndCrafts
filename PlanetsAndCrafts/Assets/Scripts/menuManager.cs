@@ -7,6 +7,7 @@ public class menuManager : MonoBehaviour
 	GameObject[] menuObjects;
 	GameObject[] confirmObjects;
 	GameObject[] creditObjects;
+	GameObject[] playerObjects;
 
 	void Start()
 	{
@@ -14,6 +15,7 @@ public class menuManager : MonoBehaviour
 		menuObjects = GameObject.FindGameObjectsWithTag("Main Menu");
 		confirmObjects = GameObject.FindGameObjectsWithTag("Confirm Menu");
 		creditObjects = GameObject.FindGameObjectsWithTag("Credits");
+		playerObjects = GameObject.FindGameObjectsWithTag("Player");
 		showMenu();
 	}
 
@@ -56,6 +58,8 @@ public class menuManager : MonoBehaviour
 		{
 			g.SetActive(true);
 		}
+
+		hidePlayer();
 	}
 
 	//hides objects with Main Menu tag
@@ -65,9 +69,11 @@ public class menuManager : MonoBehaviour
 		{
 			g.SetActive(false);
 		}
+
+		showPlayer();
 	}
 
-	//shows objects with Main Menu tag
+	//shows objects with Confirm tag
 	public void showConfirm()
 	{
 		foreach (GameObject g in confirmObjects)
@@ -76,7 +82,7 @@ public class menuManager : MonoBehaviour
 		}
 	}
 
-	//hides objects with Main Menu tag
+	//hides objects with Confirm tag
 	public void hideConfirm()
 	{
 		foreach (GameObject g in confirmObjects)
@@ -85,7 +91,7 @@ public class menuManager : MonoBehaviour
 		}
 	}
 
-	//shows objects with Main Menu tag
+	//shows objects with Credit tag
 	public void showCredits()
 	{
 		foreach (GameObject g in creditObjects)
@@ -94,10 +100,28 @@ public class menuManager : MonoBehaviour
 		}
 	}
 
-	//hides objects with Main Menu tag
+	//hides objects with Credit tag
 	public void hideCredits()
 	{
 		foreach (GameObject g in creditObjects)
+		{
+			g.SetActive(false);
+		}
+	}
+
+	//hides objects with Player tag
+	public void showPlayer()
+	{
+		foreach (GameObject g in playerObjects)
+		{
+			g.SetActive(true);
+		}
+	}
+
+	//hides objects with Player tag
+	public void hidePlayer()
+	{
+		foreach (GameObject g in playerObjects)
 		{
 			g.SetActive(false);
 		}
