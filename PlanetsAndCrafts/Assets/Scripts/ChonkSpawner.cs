@@ -9,7 +9,10 @@ public class ChonkSpawner : MonoBehaviour
     public GameObject[] corkos = new GameObject[3];
     public GameObject[] bits = new GameObject[5];
 
+
     public bool chonksSpawned = false;
+    public Tools tool;
+
 
     public void ChonksLoad()
     {
@@ -33,6 +36,7 @@ public class ChonkSpawner : MonoBehaviour
             if (chonksComplete == true)
             {
                 Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition 
+                tool._state = State.GooglyEyes;
 
             }
         }
