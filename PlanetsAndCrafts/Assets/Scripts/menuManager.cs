@@ -43,6 +43,12 @@ public class menuManager : MonoBehaviour
 		Application.LoadLevel(Application.loadedLevel);
 	}
 
+	//quits
+	public void Quit()
+	{
+		Application.Quit();
+	}
+
 	//shows objects with Main Menu tag
 	public void showMenu()
 	{
