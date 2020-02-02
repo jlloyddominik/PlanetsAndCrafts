@@ -9,6 +9,8 @@ public class ChonkSpawner : MonoBehaviour
     public GameObject[] corkos = new GameObject[3];
     public GameObject[] bits = new GameObject[5];
 
+    public Tools tool;
+
     public void ChonksLoad()
     {
         RandomiseBits();
@@ -16,7 +18,20 @@ public class ChonkSpawner : MonoBehaviour
 
     void Update()
     {
+        foreach (GameObject b in bits)
+        {
+            
+            if (b.tag == "Pieces" && b.GetComponent<Core>().ReturnTopParent().tag != "Core")
+            {
+                chonksComplete = false;
+            }
 
+        }
+        if (chonksComplete == true)
+        {
+            Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition
+            tool._state = State.GooglyEyes;
+        }
     }
 
     void RandomiseBits()
