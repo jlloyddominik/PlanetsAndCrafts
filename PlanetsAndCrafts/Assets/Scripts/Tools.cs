@@ -53,22 +53,22 @@ public class Tools : MonoBehaviour
     public List<Sprite> _glueShapes;
     public List<Sprite> _tapeTypes;
 
-    AudioSource[] dronkAudio;
-    AudioSource[] chonkAudio;
-    AudioSource[] bigchonkAudio;
-    AudioSource[] tapeAudio;
-    AudioSource[] tapereactAudio;
-    AudioSource[] staplerAudio;
-    AudioSource[] staplerreactAudio;
-    AudioSource[] lavareactAudio;
-    AudioSource[] icereactAudio;
-    AudioSource[] hornAudio;
-    AudioSource[] hornreactAudio;
-    AudioSource[] handAudio;
-    AudioSource[] handreactAudio;
-    AudioSource[] glueAudio;
-    AudioSource[] gluereactAudio;
-    AudioSource[] bgreactAudio;
+    public AudioClip[] dronkAudio;
+    public AudioClip[] chonkAudio;
+    public AudioClip[] bigchonkAudio;
+    public AudioClip[] tapeAudio;
+    public AudioClip[] tapereactAudio;
+    public AudioClip[] staplerAudio;
+    public AudioClip[] staplerreactAudio;
+    public AudioClip[] lavareactAudio;
+    public AudioClip[] icereactAudio;
+    public AudioClip[] hornAudio;
+    public AudioClip[] hornreactAudio;
+    public AudioClip[] handAudio;
+    public AudioClip[] handreactAudio;
+    public AudioClip[] glueAudio;
+    public AudioClip[] gluereactAudio;
+    public AudioClip[] bgreactAudio;
 
     /*    
     AudioSource audioData;
