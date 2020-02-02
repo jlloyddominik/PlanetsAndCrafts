@@ -7,6 +7,9 @@ public enum State { Hand, Stapler, Tape, Glue, GooglyEyes}
 
 public class Tools : MonoBehaviour
 {
+    public float toolz;
+    public float materialz;
+
     public SpriteRenderer _renderer;
     public Sprite _mouse;
     public GameObject _stapler;
@@ -20,6 +23,8 @@ public class Tools : MonoBehaviour
     public GameObject _glueProto;
     public GameObject _glue;
     public SpriteRenderer _glueRenderer;
+
+    public GameObject _googlyEye;
 
 
     public State _state;
@@ -294,8 +299,8 @@ public class Tools : MonoBehaviour
             _tapeBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _tape = Instantiate(_tapeProto);
             _tapeRenderer = _tape.GetComponent<SpriteRenderer>();
-            _tapeRenderer.sprite = _tapeTypes[0];
-            _tapeRenderer.color = _colours[0];
+            _tapeRenderer.sprite = _tapeTypes[UnityEngine.Random.Range(0, _tapeTypes.Count)];
+            _tapeRenderer.color = _colours[UnityEngine.Random.Range(0, _colours.Count)];
             _tape.SetActive(true);
             _tape.transform.position = _tapeBegin;
         }
@@ -341,9 +346,12 @@ public class Tools : MonoBehaviour
                     _glue = Instantiate(_glueProto);
                     _glue.SetActive(true);
                     Vector3 gluepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    gluepos.z = 0;
+                    gluepos.z = materialz;
                     _glue.transform.position = gluepos;
                     _glue.transform.parent = core.transform;
+                    _glueRenderer = _glue.GetComponent<SpriteRenderer>();
+                    _glueRenderer.sprite = _glueShapes[UnityEngine.Random.Range(0, _glueShapes.Count)];
+                    _glueRenderer.color = _colours[UnityEngine.Random.Range(0, _colours.Count)];
                 }
                 else
                 {
@@ -357,9 +365,12 @@ public class Tools : MonoBehaviour
                     _glue = Instantiate(_glueProto);
                     _glue.SetActive(true);
                     Vector3 gluepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    gluepos.z = 0;
+                    gluepos.z = materialz;
                     _glue.transform.position = gluepos;
                     _glue.transform.parent = newParent.transform;
+                    _glueRenderer = _glue.GetComponent<SpriteRenderer>();
+                    _glueRenderer.sprite = _glueShapes[UnityEngine.Random.Range(0, _glueShapes.Count)];
+                    _glueRenderer.color = _colours[UnityEngine.Random.Range(0, _colours.Count)];
                 }
             }
             else Debug.Log("one or fewer");
@@ -368,10 +379,27 @@ public class Tools : MonoBehaviour
     }
 
     private void GooglyEyesUp()
-    { }
+    {
+        _toolReady = true;
+    }
 
     private void GooglyEyesDown()
-    { }
+    {
+        if (_toolReady)
+        {
+            _toolReady = false;
+            Collider2D col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), .1f);
+            if (col.tag == "Piece" || col.tag == "Core" || col.tag == "Material")
+            {
+                GameObject googly = Instantiate(_googlyEye);
+                googly.SetActive(true);
+                Vector3 eyepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                eyepos.z = 0;
+                googly.transform.position = eyepos;
+                googly.transform.parent = col.transform;
+            }
+        }
+    }
 
 
 

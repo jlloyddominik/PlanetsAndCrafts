@@ -30,8 +30,11 @@ public class ToolButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     void ChangeTool()
     {
-        tool.ChangeTool();
-        button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
+        if (tool._state != State.GooglyEyes)
+        {
+            tool.ChangeTool();
+            button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
+        }
     }
     
     
