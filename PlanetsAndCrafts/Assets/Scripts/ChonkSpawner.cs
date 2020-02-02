@@ -11,15 +11,13 @@ public class ChonkSpawner : MonoBehaviour
 
     public Tools tool;
 
-    void Awake()
+    public void ChonksLoad()
     {
         RandomiseBits();
     }
 
     void Update()
     {
-        bool chonksComplete = true;
-
         foreach (GameObject b in bits)
         {
             
@@ -55,6 +53,28 @@ public class ChonkSpawner : MonoBehaviour
         }
 
         SpawnBits(bits);
+
+        CheckBits();
+    }
+
+    void CheckBits()
+    {
+        bool chonksComplete = true;
+
+        foreach (GameObject b in bits)
+        {
+
+            if (b.tag == "Pieces" && b.GetComponent<Core>().ReturnTopParent().tag != "Core")
+            {
+                chonksComplete = false;
+            }
+
+        }
+        if (chonksComplete == true)
+        {
+            Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition 
+
+        }
     }
 
     void SpawnBits(GameObject[] bits)
