@@ -56,6 +56,7 @@ public class ChonkSpawner : MonoBehaviour
         {
             go = Instantiate(chonks[Random.Range(0, 5)]);
             go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
+            go.GetComponent<DragGameSprite>()._tool = tool;
             bits[i] = go;
         }
 
@@ -64,6 +65,7 @@ public class ChonkSpawner : MonoBehaviour
         {
             go = Instantiate(dronks[Random.Range(0, 4)]);
             go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
+            go.GetComponent<DragGameSprite>()._tool = tool;
             bits[i] = go;
         }
 
