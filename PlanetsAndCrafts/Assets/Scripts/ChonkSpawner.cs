@@ -21,7 +21,7 @@ public class ChonkSpawner : MonoBehaviour
         foreach (GameObject b in bits)
         {
             
-            if (b.GetComponent<Core>().ReturnTopParent().tag != "Core")
+            if (b.tag == "Pieces" && b.GetComponent<Core>().ReturnTopParent().tag != "Core")
             {
                 chonksComplete = false;
             }
@@ -61,7 +61,7 @@ public class ChonkSpawner : MonoBehaviour
         {
             Debug.Log("Chonk Spawned");
             GameObject go = Instantiate(b);
-            go.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-5, 5), 0);
+            go.transform.position = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0);
         }
     }
 }
