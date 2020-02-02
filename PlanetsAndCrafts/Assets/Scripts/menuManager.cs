@@ -6,12 +6,14 @@ public class menuManager : MonoBehaviour
 {
 	GameObject[] menuObjects;
 	GameObject[] confirmObjects;
+	GameObject[] creditObjects;
 
 	void Start()
 	{
 		Time.timeScale = 0;
 		menuObjects = GameObject.FindGameObjectsWithTag("Main Menu");
 		confirmObjects = GameObject.FindGameObjectsWithTag("Confirm Menu");
+		creditObjects = GameObject.FindGameObjectsWithTag("Credits");
 		showMenu();
 	}
 
@@ -35,28 +37,13 @@ public class menuManager : MonoBehaviour
 	}
 
 
-	//Reloads the Level
+	//reloads
 	public void Reload()
 	{
 		Application.LoadLevel(Application.loadedLevel);
 	}
 
-	//controls the pausing of the scene
-	public void pauseControl()
-	{
-		if (Time.timeScale == 1)
-		{
-			Time.timeScale = 0;
-			showMenu();
-		}
-		else if (Time.timeScale == 0)
-		{
-			Time.timeScale = 1;
-			hideMenu();
-		}
-	}
-
-	//shows objects with ShowOnPause tag
+	//shows objects with Main Menu tag
 	public void showMenu()
 	{
 		foreach (GameObject g in menuObjects)
@@ -65,7 +52,7 @@ public class menuManager : MonoBehaviour
 		}
 	}
 
-	//hides objects with ShowOnPause tag
+	//hides objects with Main Menu tag
 	public void hideMenu()
 	{
 		foreach (GameObject g in menuObjects)
@@ -74,7 +61,43 @@ public class menuManager : MonoBehaviour
 		}
 	}
 
-	//loads inputted level
+	//shows objects with Main Menu tag
+	public void showConfirm()
+	{
+		foreach (GameObject g in confirmObjects)
+		{
+			g.SetActive(true);
+		}
+	}
+
+	//hides objects with Main Menu tag
+	public void hideConfirm()
+	{
+		foreach (GameObject g in confirmObjects)
+		{
+			g.SetActive(false);
+		}
+	}
+
+	//shows objects with Main Menu tag
+	public void showCredits()
+	{
+		foreach (GameObject g in creditObjects)
+		{
+			g.SetActive(true);
+		}
+	}
+
+	//hides objects with Main Menu tag
+	public void hideCredits()
+	{
+		foreach (GameObject g in creditObjects)
+		{
+			g.SetActive(false);
+		}
+	}
+
+	//loads
 	public void LoadLevel(string level)
 	{
 		Application.LoadLevel(level);

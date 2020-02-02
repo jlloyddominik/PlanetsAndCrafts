@@ -8,6 +8,7 @@ TagManager:
   - Piece
   - Main Menu
   - Confirm Menu
+  - Credits
   layers:
   - Default
   - TransparentFX
