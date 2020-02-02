@@ -60,6 +60,7 @@ public class menuManager : MonoBehaviour
 		}
 
 		hidePlayer();
+		hideConfirm();
 	}
 
 	//hides objects with Main Menu tag
