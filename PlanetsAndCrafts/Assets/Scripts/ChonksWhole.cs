@@ -28,7 +28,8 @@ public class ChonksWhole : MonoBehaviour
         }
         if (chonksComplete == true)
         {
-            Debug.Log("CHONKS COMPLETE!");
+            Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition 
+           
         }
     }
 }
