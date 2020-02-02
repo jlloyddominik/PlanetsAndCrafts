@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3780996728191041857}
   - component: {fileID: 3780996728191041858}
   - component: {fileID: 1407009919055279443}
+  - component: {fileID: 2354230129423842290}
   m_Layer: 8
   m_Name: obj_Dronks
   m_TagString: Untagged
@@ -115,6 +116,26 @@ PolygonCollider2D:
       - {x: 0.005819888, y: -0.008059626}
       - {x: 0.009550035, y: -0.0029885536}
       - {x: 0.009596026, y: 0.0030491857}
+--- !u!114 &2354230129423842290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3780996728191041860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2c402662c89804d960fe2323e66174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  driftThreshhold: 10
+  rigidbody: {fileID: 0}
+  driftMultiplier: 25
+  lerpMultiplierMin: 1
+  lerpMultiplierMax: 10
+  time: 0
+  _tool: {fileID: 0}
 --- !u!1 &3780996728244020328
 GameObject:
   m_ObjectHideFlags: 0

@@ -86,6 +86,21 @@ PolygonCollider2D:
       - {x: 0.025112513, y: 0.0025769006}
       - {x: 0.02541975, y: 0.0059324405}
       - {x: 0.023988456, y: 0.01034697}
+--- !u!114 &1172901735875856252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8733743734591931542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28cebcd5b98bb3419f3196df095546f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  driftThreshhold: 10
+  rigidbody: {fileID: 0}
 --- !u!1001 &726646006211026335
 PrefabInstance:
   m_ObjectHideFlags: 0
