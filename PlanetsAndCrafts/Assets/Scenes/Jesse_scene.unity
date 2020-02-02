@@ -331,6 +331,8 @@ MonoBehaviour:
   _tapeTool: {fileID: 580073629}
   _tapeProto: {fileID: 170428179}
   _tape: {fileID: 0}
+  _tapeToolOrigin: {x: 1.527945, y: -0.1210363, z: 0.5028491}
+  _tapeToolRot: {x: -2.192, y: 101.266, z: -79.132}
   _tapeRenderer: {fileID: 0}
   _glueBottle: {fileID: 255957125}
   _glueProto: {fileID: 1707274391}
@@ -342,8 +344,6 @@ MonoBehaviour:
   prev2: {x: 0, y: 0}
   cur2: {x: 0, y: 0}
   dif: {x: 0, y: 0}
-  angle: 0
-  tempAngle: 0
   rotSpeed: 5
   _hovering: 0
   _toolReady: 1
@@ -353,6 +353,25 @@ MonoBehaviour:
   _tapeBegin: {x: 0, y: 0}
   _tapeEnd: {x: 0, y: 0}
   _taping: 0
+  _maxTapeLength: 2
+  _tapeFixMulti: 0
+  _colours:
+  - {r: 0.94833505, g: 0.3726415, b: 1, a: 0}
+  - {r: 1, g: 0.6745283, b: 0.6745283, a: 0}
+  - {r: 1, g: 0.051886797, b: 0.22969328, a: 0}
+  - {r: 1, g: 0.65244377, b: 0.28773582, a: 0}
+  - {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0}
+  - {r: 0.7914076, g: 0, b: 1, a: 0}
+  - {r: 1, g: 0.7766079, b: 0.5801887, a: 0}
+  _glueShapes:
+  - {fileID: 21300000, guid: 917c363e7877e6f468931115dfebec0c, type: 3}
+  - {fileID: 21300000, guid: 71542305f94d9a040aa08a9107f0cc9a, type: 3}
+  - {fileID: 21300000, guid: e1cac519d23c60043985f02234b74f5b, type: 3}
+  _tapeTypes:
+  - {fileID: 21300000, guid: b66c63f5e6806a34d8c61c575177ab8f, type: 3}
+  - {fileID: 21300000, guid: 42796c28e73f90c43ad5958af722a3a4, type: 3}
+  - {fileID: 21300000, guid: cb61442c1e687cf4f81b49bad0827839, type: 3}
+  - {fileID: 21300000, guid: 260f9a4b64ffbcf4eb3bfb6ddb16f611, type: 3}
 --- !u!212 &177157577
 SpriteRenderer:
   m_ObjectHideFlags: 0
