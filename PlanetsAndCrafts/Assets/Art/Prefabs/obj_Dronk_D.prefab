@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8783749506385549826}
   - component: {fileID: 4736194982446118835}
   - component: {fileID: 7673329289655644798}
+  - component: {fileID: 2821218154636021944}
   m_Layer: 8
   m_Name: obj_Dronks
   m_TagString: Untagged
@@ -167,3 +168,24 @@ MonoBehaviour:
   lerpMultiplierMax: 10
   time: 0
   _tool: {fileID: 0}
+--- !u!50 &2821218154636021944
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8783749506385549824}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

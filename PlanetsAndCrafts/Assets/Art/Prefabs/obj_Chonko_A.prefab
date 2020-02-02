@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5625635686764493263}
   - component: {fileID: 3347550691036551384}
   - component: {fileID: 7066761104889814799}
+  - component: {fileID: 1949630768005977233}
   m_Layer: 8
   m_Name: obj_Chonks
   m_TagString: Untagged
@@ -132,6 +133,27 @@ MonoBehaviour:
   lerpMultiplierMax: 10
   time: 0
   _tool: {fileID: 0}
+--- !u!50 &1949630768005977233
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4814489801741632426}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6495499415988920470
 GameObject:
   m_ObjectHideFlags: 0
