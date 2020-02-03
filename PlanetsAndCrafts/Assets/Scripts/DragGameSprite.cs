@@ -40,7 +40,7 @@ public class DragGameSprite : Core
             PreviousMousePos = CurrentMousePos;
             CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //this.gameObject.transform.position = Vector2.Lerp(transform.position, new Vector3(CurrentMousePos.x + startPosX, CurrentMousePos.y + startPosY), Time.deltaTime * time);
-            this.gameObject.transform.position = Vector2.Lerp(transform.position, new Vector3(CurrentMousePos.x, CurrentMousePos.y), Time.deltaTime * time); ;
+            this.gameObject.transform.position = Vector2.Lerp(transform.position, new Vector3(CurrentMousePos.x, CurrentMousePos.y), Time.deltaTime * time);
         }
         else
         {

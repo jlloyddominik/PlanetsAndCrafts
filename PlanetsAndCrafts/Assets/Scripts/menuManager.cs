@@ -60,6 +60,7 @@ public class menuManager : MonoBehaviour
 	{
 		foreach (GameObject g in menuObjects)
 		{
+            Debug.Log(g.name);
 			g.SetActive(true);
 		}
 	}
@@ -121,7 +122,8 @@ public class menuManager : MonoBehaviour
 	//hides objects with Player tag
 	public void showPlayer()
 	{
-		foreach (GameObject g in playerObjects)
+        Time.timeScale = 1;
+        foreach (GameObject g in playerObjects)
 		{
 			g.SetActive(true);
 		}

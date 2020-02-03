@@ -19,6 +19,7 @@ public class ChonkSpawner : MonoBehaviour
 
     public void ChonksLoad()
     {
+        DeleteChonks();
         tool._state = State.Hand;
         chonksSpawned = false;
         RandomiseBits();
@@ -50,14 +51,14 @@ public class ChonkSpawner : MonoBehaviour
     {
         bits = new GameObject[6];
         Debug.Log("Chonk Spawned");
-        GameObject go = Instantiate(corkos[Random.Range(0, 2)], new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), chonkz), Quaternion.identity);
+        GameObject go = Instantiate(corkos[Random.Range(0, 3)], new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), chonkz), Quaternion.identity);
         bits[0] = go;
 
 
         for(int i = 1; i <3; i++)
         {
-            go = Instantiate(chonks[Random.Range(0, 5)]);
-            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), chonkz);
+            go = Instantiate(chonks[Random.Range(0, 6)]);
+            go.transform.position = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), chonkz);
             go.GetComponent<DragGameSprite>()._tool = tool;
             bits[i] = go;
         }
@@ -65,8 +66,8 @@ public class ChonkSpawner : MonoBehaviour
         //add three chonks
         for(int i = 3; i < 6; i++)
         {
-            go = Instantiate(dronks[Random.Range(0, 4)]);
-            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), chonkz);
+            go = Instantiate(dronks[Random.Range(0, 5)]);
+            go.transform.position = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), chonkz);
             go.GetComponent<DragGameSprite>()._tool = tool;
             bits[i] = go;
         }
@@ -74,6 +75,17 @@ public class ChonkSpawner : MonoBehaviour
 
         //SpawnBits(bits);
         chonksSpawned = true;
+    }
+
+    private void DeleteChonks()
+    {
+        for (int i = 0; i < bits.Length; i++)
+        {
+            if (bits[i] != null)
+            {
+                Destroy(bits[i]);
+            }
+        }
     }
 
     //void SpawnBits(GameObject[] bits)

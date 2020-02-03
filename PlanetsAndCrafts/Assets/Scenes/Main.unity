@@ -133,11 +133,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Icons
       objectReference: {fileID: 0}
-    - target: {fileID: 535582916336559242, guid: 358edf95f1bbe404ba5a37fdef12a44a,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 535582916336559246, guid: 358edf95f1bbe404ba5a37fdef12a44a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -431,11 +426,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 814079378828902049, guid: d7a6fec947a36463bbef631f50158c94,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6399602235493066887, guid: d7a6fec947a36463bbef631f50158c94,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -557,7 +547,7 @@ MonoBehaviour:
 
     Rune Finlayson
 
-    
+
 
     PROGRAMMERS
 
@@ -566,19 +556,19 @@ MonoBehaviour:
     Matthew
     Jackson
 
-    
+
 
     ART
 
     Jessica Brett
 
-    
+
 
     JOKES
 
     Pedro Cooray
 
-    
+
 
     AUDIO
     SFX
@@ -587,7 +577,7 @@ MonoBehaviour:
 
     Paul Nunes
 
-    
+
 
     STYLIZED SKYBOX SHADER
 
@@ -621,7 +611,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.3
+  m_fontSize: 21.65
   m_fontSizeBase: 206.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -662,12 +652,12 @@ MonoBehaviour:
   m_margin: {x: -403.5068, y: -276.40817, z: -194.88054, w: -248.59128}
   m_textInfo:
     textComponent: {fileID: 1000024336}
-    characterCount: 221
+    characterCount: 208
     spriteCount: 0
-    spaceCount: 32
+    spaceCount: 37
     wordCount: 28
     linkCount: 0
-    lineCount: 19
+    lineCount: 24
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -792,6 +782,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1071627793, guid: e6b21964ce5bf5344921b4e05bed560d, type: 3}
+      propertyPath: tool
+      value: 
+      objectReference: {fileID: 487461145}
     - target: {fileID: 8490464245326859350, guid: e6b21964ce5bf5344921b4e05bed560d,
         type: 3}
       propertyPath: m_Name
@@ -854,51 +848,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6b21964ce5bf5344921b4e05bed560d, type: 3}
---- !u!1 &1071627792 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8490464245326859350, guid: e6b21964ce5bf5344921b4e05bed560d,
+--- !u!114 &1071627793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1071627793, guid: e6b21964ce5bf5344921b4e05bed560d,
     type: 3}
   m_PrefabInstance: {fileID: 1071627791}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1071627793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071627792}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0dcb3c57c0a62a40aeaf21b980c5eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chonkz: 0
-  dronks:
-  - {fileID: 1052888110992984027, guid: 1bb74e0708767ed4eb9ffc7336cad0ee, type: 3}
-  - {fileID: 4775893721013263316, guid: adce5cb01b502ad4d9b06a34fa9d481d, type: 3}
-  - {fileID: 8596784249325414116, guid: 92664747d89728f42bd00bc98302364f, type: 3}
-  - {fileID: 5508765229322259738, guid: bbdfd36f4611d604996c4b9b6e24af91, type: 3}
-  - {fileID: 4915417408238390344, guid: 944f442071f32c44eb5f53219ca2f083, type: 3}
-  chonks:
-  - {fileID: 7648934580530887033, guid: 445a0a434583cd1449e36ca255a68139, type: 3}
-  - {fileID: 2469029141102442964, guid: 30e72287d7702db45948d63cae0baa3d, type: 3}
-  - {fileID: 1622273508517537081, guid: 0a1236529e72fab408b293d8bf9deb97, type: 3}
-  - {fileID: 8976234259538228946, guid: 40bcb4c61920a594db7b5b4b6076dc85, type: 3}
-  - {fileID: 5151492998637102105, guid: d9362335fe4a1bc4aa1575e07129c80d, type: 3}
-  - {fileID: 1009332531695883163, guid: f9672996246e53f4b8c8668108c4b213, type: 3}
-  corkos:
-  - {fileID: 2249275083008701741, guid: f89e4bdc019571242808652deb9d5265, type: 3}
-  - {fileID: 8372636739595115193, guid: 5188f8dcf1c5b7040b10c46d10eed283, type: 3}
-  - {fileID: 6038857569074183128, guid: 16f9ec99bc1f2d447bfd35e8577ce7f5, type: 3}
-  bits:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  chonksSpawned: 0
-  tool: {fileID: 487461145}
 --- !u!1001 &1127661595
 PrefabInstance:
   m_ObjectHideFlags: 0

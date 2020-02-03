@@ -274,7 +274,7 @@ public class Tools : MonoBehaviour
         float dist = Mathf.Min(Vector2.Distance(_tapeBegin, _tapeEnd),_maxTapeLength);
         int firstBigBoi = -1;
         Core core;
-        RaycastHit2D[] collisions = Physics2D.BoxCastAll(_tapeBegin, Vector2.one, 0, _tapeEnd - _tapeBegin, dist, _toolHits);
+        RaycastHit2D[] collisions = Physics2D.BoxCastAll(_tapeBegin, Vector2.one * .5f, angle, _tapeEnd - _tapeBegin, dist, _toolHits);
         if (collisions.Length > 1)
         {
             for (int i = 0; i < collisions.Length; i++)
@@ -313,7 +313,13 @@ public class Tools : MonoBehaviour
                 _tape.transform.parent = newParent.transform;
             }
         }
-
+        if (_tape.transform.parent == null)
+        {
+            Rigidbody2D _tempTape = _tape.AddComponent<Rigidbody2D>();
+            _tempTape.gravityScale = 0;
+            Vector2 direction = new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)).normalized;
+            _tempTape.AddRelativeForce(direction * 100);
+        }
     }
 
     private void TapeDown()
@@ -397,6 +403,7 @@ public class Tools : MonoBehaviour
                     _glueRenderer = _glue.GetComponent<SpriteRenderer>();
                     _glueRenderer.sprite = _glueShapes[UnityEngine.Random.Range(0, _glueShapes.Count)];
                     _glueRenderer.color = _colours[UnityEngine.Random.Range(0, _colours.Count)];
+
                 }
             }
             else Debug.Log("one or fewer");

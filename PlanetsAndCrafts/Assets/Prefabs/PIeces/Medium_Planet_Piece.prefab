@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2c402662c89804d960fe2323e66174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
+  driftThreshhold: 10
   rigidbody: {fileID: 2509036740950396957}
   driftMultiplier: 29.38
   lerpMultiplierMin: 1
