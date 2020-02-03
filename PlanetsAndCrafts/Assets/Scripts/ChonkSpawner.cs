@@ -39,7 +39,6 @@ public class ChonkSpawner : MonoBehaviour
             {
                 Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition 
                 tool._state = State.GooglyEyes;
-
             }
         }
     }

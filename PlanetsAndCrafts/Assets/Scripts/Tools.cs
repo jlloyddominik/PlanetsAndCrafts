@@ -389,7 +389,7 @@ public class Tools : MonoBehaviour
         {
             _toolReady = false;
             Collider2D col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), .1f);
-            if (col.tag == "Piece" || col.tag == "Core" || col.tag == "Material")
+            if (col && (col.tag == "Piece" || col.tag == "Core" || col.tag == "Material"))
             {
                 GameObject googly = Instantiate(_googlyEye);
                 googly.SetActive(true);
