@@ -9,15 +9,25 @@ public class ToolButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Tools tool;
     public Button button;
     public Sprite[] buttonIcons;
+    private bool hasWonIcon;
     
     // Start is called before the first frame update
 
     private void Start()
     {
+        hasWonIcon = false;
+        button.GetComponent<Image>().sprite = buttonIcons[0];
         button.onClick.AddListener(ChangeTool);
     }
 
-
+    private void Update()
+    {
+        if (!hasWonIcon && tool._state == State.GooglyEyes)
+        {
+            button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
+            hasWonIcon = true;
+        }
+    }
     public void OnPointerEnter(PointerEventData data)
     {
         tool._hovering = true;
@@ -35,7 +45,5 @@ public class ToolButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             tool.ChangeTool();
             button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
         }
-    }
-    
-    
+    }  
 }

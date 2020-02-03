@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ChonkSpawner : MonoBehaviour
 {
+    public float chonkz;
+
+
     public GameObject[] dronks = new GameObject[5];
     public GameObject[] chonks = new GameObject[6];
     public GameObject[] corkos = new GameObject[3];
@@ -38,7 +41,7 @@ public class ChonkSpawner : MonoBehaviour
             if (chonksComplete == true)
             {
                 Debug.Log("CHONKS COMPLETE!"); // replace this with a win condition 
-                tool._state = State.GooglyEyes;
+                tool.Win();
             }
         }
     }
@@ -47,14 +50,14 @@ public class ChonkSpawner : MonoBehaviour
     {
         bits = new GameObject[6];
         Debug.Log("Chonk Spawned");
-        GameObject go = Instantiate(corkos[Random.Range(0, 2)], new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0), Quaternion.identity);
+        GameObject go = Instantiate(corkos[Random.Range(0, 2)], new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), chonkz), Quaternion.identity);
         bits[0] = go;
 
 
         for(int i = 1; i <3; i++)
         {
             go = Instantiate(chonks[Random.Range(0, 5)]);
-            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
+            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), chonkz);
             go.GetComponent<DragGameSprite>()._tool = tool;
             bits[i] = go;
         }
@@ -63,7 +66,7 @@ public class ChonkSpawner : MonoBehaviour
         for(int i = 3; i < 6; i++)
         {
             go = Instantiate(dronks[Random.Range(0, 4)]);
-            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), 0);
+            go.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), chonkz);
             go.GetComponent<DragGameSprite>()._tool = tool;
             bits[i] = go;
         }

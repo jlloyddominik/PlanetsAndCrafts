@@ -510,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0dcb3c57c0a62a40aeaf21b980c5eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chonkz: 0
   dronks:
   - {fileID: 1052888110992984027, guid: 1bb74e0708767ed4eb9ffc7336cad0ee, type: 3}
   - {fileID: 4775893721013263316, guid: adce5cb01b502ad4d9b06a34fa9d481d, type: 3}

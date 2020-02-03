@@ -13,6 +13,8 @@ public class Tools : MonoBehaviour
     public SpriteRenderer _renderer;
     public Sprite _mouse;
     public GameObject _stapler;
+    public GameObject _stapleProto;
+    public GameObject _staple;
     public GameObject _tapeTool;
     public GameObject _tapeProto;
     public GameObject _tape;
@@ -85,6 +87,11 @@ public class Tools : MonoBehaviour
         Debug.Log("started");
     }
     */
+
+    private void Start()
+    {
+        _state = State.Hand;
+    }
 
     private void Update()
     {
@@ -191,9 +198,11 @@ public class Tools : MonoBehaviour
     {
         Collider2D first = Physics2D.OverlapCircle(transform.TransformPoint(Vector3.up * 0.25f), 0.1f, _toolHits);
         Collider2D second = Physics2D.OverlapCircle(transform.TransformPoint(Vector3.down * 0.25f), 0.1f, _toolHits);
-        Core firstTest = first.gameObject.GetComponent<Core>();
-        Core secondTest = second.gameObject.GetComponent<Core>();
-        if (firstTest.ReturnTopParent().tag != "Core" || secondTest.ReturnTopParent().tag != "Core")
+        Core firstTest = null;
+        if (first) firstTest = first.gameObject.GetComponent<Core>();
+        Core secondTest = null;
+        if (second) secondTest = second.gameObject.GetComponent<Core>();
+        if (firstTest && secondTest && (firstTest.ReturnTopParent().tag != "Core" || secondTest.ReturnTopParent().tag != "Core"))
         {
             if (first && second && first != second)
             {
@@ -205,12 +214,13 @@ public class Tools : MonoBehaviour
                     {
                         secondObject.ReturnTopParent().transform.parent = first.transform;
                         first.GetComponent<Core>().SetAllChildren();
+                        PlaceStaple(first.transform);
                     }
                     else
                     {
                         secondObject.ReturnTopParent().transform.parent = firstObject.ReturnTopParent().transform;
                         firstObject.ReturnTopParent().GetComponent<Core>().SetAllChildren();
-
+                        PlaceStaple(firstObject.ReturnTopParent().transform);
                     }
                 }
                 else if (second.tag == "Core" || second.GetComponent<DragGameSprite>().CheckForCore())
@@ -219,13 +229,15 @@ public class Tools : MonoBehaviour
                     {
                         firstObject.ReturnTopParent().transform.parent = second.transform;
                         second.GetComponent<Core>().SetAllChildren();
-                        Debug.Log("got to if");
+                        PlaceStaple(second.transform);
                     }
                     else
                     {
                         firstObject.ReturnTopParent().transform.parent = secondObject.ReturnTopParent().transform;
                         Debug.Log("got to else");
                         secondObject.ReturnTopParent().GetComponent<Core>().SetAllChildren();
+                        PlaceStaple(secondObject.ReturnTopParent().transform);
+
                     }
                 }
                 else
@@ -233,10 +245,23 @@ public class Tools : MonoBehaviour
                     firstObject.ReturnTopParent().transform.parent = secondObject.ReturnTopParent().transform;
                     DragGameSprite top = secondObject.ReturnTopParent().GetComponent<DragGameSprite>();
                     top.AttachNewBody(top.rigidbody);
+                    PlaceStaple(secondObject.ReturnTopParent().transform);
+
                 }
                 // Spawn a staple;
             }
         }
+    }
+
+    private void PlaceStaple(Transform parent)
+    {
+        _staple = Instantiate(_stapleProto);
+        _staple.SetActive(true);
+        Vector3 staplePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        staplePos.z = materialz;
+        _staple.transform.position = staplePos;
+        _staple.transform.rotation = Quaternion.AngleAxis(angle-90, Vector3.forward);
+        _staple.transform.parent = parent;
     }
 
     private void TapeUp()
@@ -302,7 +327,8 @@ public class Tools : MonoBehaviour
             _tapeRenderer.sprite = _tapeTypes[UnityEngine.Random.Range(0, _tapeTypes.Count)];
             _tapeRenderer.color = _colours[UnityEngine.Random.Range(0, _colours.Count)];
             _tape.SetActive(true);
-            _tape.transform.position = _tapeBegin;
+            Vector3 correction = new Vector3(_tapeBegin.x, _tapeBegin.y, materialz);
+            _tape.transform.position = correction;
         }
         _toolReady = false;
     }
@@ -394,7 +420,7 @@ public class Tools : MonoBehaviour
                 GameObject googly = Instantiate(_googlyEye);
                 googly.SetActive(true);
                 Vector3 eyepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                eyepos.z = 0;
+                eyepos.z = materialz * 1.1f;
                 googly.transform.position = eyepos;
                 googly.transform.parent = col.transform;
             }
@@ -406,10 +432,13 @@ public class Tools : MonoBehaviour
     public void ChangeTool()
     {
         Deactivate(_state);
-        int temp = (int)_state;
-        temp++;
-        temp %= 4;
-        _state = (State)temp;
+        if (_state != State.GooglyEyes)
+        {
+            int temp = (int)_state;
+            temp++;
+            temp %= 4;
+            _state = (State)temp;
+        }
         Activate(_state);
     }
 
@@ -430,7 +459,6 @@ public class Tools : MonoBehaviour
                 _glueBottle.SetActive(false);
                 break;
             case State.GooglyEyes:
-                _renderer.sprite = _googlyEyes;
                 break;
         }
     }
@@ -452,9 +480,17 @@ public class Tools : MonoBehaviour
                 _glueBottle.SetActive(true);
                 break;
             case State.GooglyEyes:
-                _renderer.sprite = _googlyEyes;
                 break;
         }
     }
 
+    public void Win()
+    {
+        _stapler.SetActive(false);
+        _tapeTool.SetActive(false);
+        _glueBottle.SetActive(false);
+        _googlyEye.SetActive(true);
+        _state = State.GooglyEyes;
+
+    }
 }
