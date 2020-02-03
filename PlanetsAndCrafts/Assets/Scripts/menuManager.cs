@@ -16,7 +16,11 @@ public class menuManager : MonoBehaviour
 		confirmObjects = GameObject.FindGameObjectsWithTag("Confirm Menu");
 		creditObjects = GameObject.FindGameObjectsWithTag("Credits");
 		playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
 		showMenu();
+		hideConfirm();
+		hideCredits();
+		hidePlayer();
 	}
 
 	// Update is called once per frame
@@ -58,10 +62,6 @@ public class menuManager : MonoBehaviour
 		{
 			g.SetActive(true);
 		}
-
-		hidePlayer();
-		hideConfirm();
-		hideCredits();
 	}
 
 	//hides objects with Main Menu tag
@@ -81,6 +81,7 @@ public class menuManager : MonoBehaviour
 		foreach (GameObject g in confirmObjects)
 		{
 			g.SetActive(true);
+			Debug.Log("bonk");
 		}
 
 		hidePlayer();
@@ -133,11 +134,5 @@ public class menuManager : MonoBehaviour
 		{
 			g.SetActive(false);
 		}
-	}
-
-	//loads
-	public void LoadLevel(string level)
-	{
-		Application.LoadLevel(level);
 	}
 }
