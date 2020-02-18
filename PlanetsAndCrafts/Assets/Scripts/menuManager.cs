@@ -135,6 +135,8 @@ public class menuManager : MonoBehaviour
 		foreach (GameObject g in playerObjects)
 		{
 			g.SetActive(false);
-		}
+            Tools t = g.GetComponent<Tools>();
+            if (t) t.Reset();
+        }
 	}
 }

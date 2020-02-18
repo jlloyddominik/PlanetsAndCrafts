@@ -28,6 +28,8 @@ public class Tools : MonoBehaviour
 
     public GameObject _googlyEye;
 
+    public ToolButton toolButton;
+
 
     public State _state;
 
@@ -51,7 +53,6 @@ public class Tools : MonoBehaviour
 
     public Vector2 _tapeBegin;
     public Vector2 _tapeEnd;
-    float anglebangle;
     public bool _taping;
     public float _maxTapeLength;
     public float _tapeFixMulti;
@@ -171,7 +172,6 @@ public class Tools : MonoBehaviour
             }
             Vector3 toolPos = 2f * _tapeEnd;
             float tapeLength = Mathf.Min(Vector2.Distance(_tapeBegin, _tapeEnd), _maxTapeLength);
-            anglebangle = -Vector2.SignedAngle(_tapeBegin, _tapeEnd);
             _tape.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, _tapeEnd - _tapeBegin) - 90);
             transform.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.right, _tapeEnd - _tapeBegin), Vector3.forward);
             _tapeTool.transform.position = _tapeBegin + (_tapeEnd - _tapeBegin).normalized * ((tapeLength * 1.3f) + .9f);
@@ -498,6 +498,13 @@ public class Tools : MonoBehaviour
         _glueBottle.SetActive(false);
         _googlyEye.SetActive(true);
         _state = State.GooglyEyes;
+    }
 
+    public void Reset()
+    {
+        Deactivate(_state);
+        _state = State.Hand;
+        Activate(_state);
+        toolButton.Reset();
     }
 }

@@ -45,5 +45,10 @@ public class ToolButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             tool.ChangeTool();
             button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
         }
-    }  
+    }
+
+    public void Reset()
+    {
+        button.GetComponent<Image>().sprite = buttonIcons[(int)tool._state];
+    }
 }
