@@ -32,6 +32,7 @@ public class menuManager : MonoBehaviour
 			{
 				Time.timeScale = 0;
 				showMenu();
+                hidePlayer();
 			}
 			else if (Time.timeScale == 0)
 			{
