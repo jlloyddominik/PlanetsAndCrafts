@@ -195,7 +195,7 @@ public class Tools : MonoBehaviour
 
     private void HandDown()
     {
-        Collider2D collider = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f, _toolHits);
+        Collider2D collider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition), _toolHits);
         if (collider && collider.gameObject.tag == "Piece")
         {
             Debug.Log("got a piece");
