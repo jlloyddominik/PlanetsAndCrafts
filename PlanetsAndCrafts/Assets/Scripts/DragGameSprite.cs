@@ -17,11 +17,11 @@ public class DragGameSprite : Core
 
     private void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player)
-        {
-            _tool = player.GetComponent<Tools>();
-        }
+        //GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //if (player)
+        //{
+        //    _tool = player.GetComponent<Tools>();
+        //}
         if (rigidbody == null) rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -49,30 +49,32 @@ public class DragGameSprite : Core
     }
 
     
-    void OnMouseDown()
+    public void MouseDown(Vector3 mousePosition)
     {
+        Debug.Log("we've entered the function");
        // may want to set velocity to 0
-        if(_tool._state == State.Hand && Input.GetMouseButtonDown(0))
-        {
+        //if(_tool._state == State.Hand && Input.GetMouseButtonDown(0))
+        //{
+
             rigidbody.velocity = Vector2.zero;
-            CurrentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            CurrentMousePos = Camera.main.ScreenToWorldPoint(mousePosition);
             startPosX = CurrentMousePos.x - transform.position.x;
             startPosY = CurrentMousePos.y - transform.position.y;
             isBeingHeld = true;
-        }
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_tool._state == State.Hand && collision.gameObject.tag == "Core")
+        if (_tool && _tool._state == State.Hand && collision.gameObject.tag == "Core")
         {
             EndBeingHeld();
         }
     }
 
-    void OnMouseUp()
+    public void MouseUp()
     {
-        if (_tool._state == State.Hand) EndBeingHeld();
+        if (_tool && _tool._state == State.Hand) EndBeingHeld();
     }
 
     void EndBeingHeld()

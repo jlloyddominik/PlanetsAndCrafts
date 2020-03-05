@@ -36,7 +36,7 @@ public class menuManager : MonoBehaviour
 			}
 			else if (Time.timeScale == 0)
 			{
-				Debug.Log("game is go");
+				//Debug.Log("game is go");
 				Time.timeScale = 1;
 				hideMenu();
 			}
@@ -61,7 +61,7 @@ public class menuManager : MonoBehaviour
 	{
 		foreach (GameObject g in menuObjects)
 		{
-            Debug.Log(g.name);
+            //.Log(g.name);
 			g.SetActive(true);
 		}
 	}
@@ -83,7 +83,7 @@ public class menuManager : MonoBehaviour
 		foreach (GameObject g in confirmObjects)
 		{
 			g.SetActive(true);
-			Debug.Log("bonk");
+			//.Log("bonk");
 		}
 
 		hidePlayer();

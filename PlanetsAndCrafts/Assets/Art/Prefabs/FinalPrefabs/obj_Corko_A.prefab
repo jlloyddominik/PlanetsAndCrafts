@@ -180,5 +180,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  driftThreshhold: 10
-  rigidbody: {fileID: 0}
+  driftThreshhold: 1
+  rigidbody: {fileID: 4202538771006211902}

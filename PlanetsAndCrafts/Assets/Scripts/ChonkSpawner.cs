@@ -35,6 +35,7 @@ public class ChonkSpawner : MonoBehaviour
         tool._state = State.Hand;
         chonksSpawned = false;
         RandomiseBits();
+        tool.ready = true;
     }
 
     void Update()
@@ -78,6 +79,7 @@ public class ChonkSpawner : MonoBehaviour
             positions[i] = GeneratedEmptyPosition(i);
             go.transform.position = positions[i];
             go.GetComponent<DragGameSprite>()._tool = tool;
+            Debug.Log(go.GetComponent<DragGameSprite>()._tool);
             go.GetComponent<MeshRenderer>().material.color = colors[Random.Range(0, colors.Length)];
             bits[i] = go;
             scalars[i] = Random.Range(chonksMinimumSizeMultiplier, chonksMaximumSizeMultiplier);

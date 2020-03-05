@@ -26,10 +26,13 @@ public class Tools : MonoBehaviour
     public GameObject _glue;
     public SpriteRenderer _glueRenderer;
 
+    public bool ready = false;
+
     public GameObject _googlyEye;
 
     public ToolButton toolButton;
 
+    public DragGameSprite currentDragger;
 
     public State _state;
 
@@ -109,7 +112,7 @@ public class Tools : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         #region Switches what call functions for each state
-        if (!_hovering)
+        if (!_hovering && ready)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -183,10 +186,28 @@ public class Tools : MonoBehaviour
 
     private void HandUp()
     {
+        if (currentDragger)
+        {
+            currentDragger.MouseUp();
+            currentDragger = null;
+        }
     }
 
     private void HandDown()
     {
+        Collider2D collider = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f, _toolHits);
+        if (collider && collider.gameObject.tag == "Piece")
+        {
+            Debug.Log("got a piece");
+            DragGameSprite piece = collider.gameObject.GetComponent<DragGameSprite>();
+            if (piece)
+            {
+                Debug.Log("the piece exists");
+                //Debug.Log(Input.mousePosition);
+                piece.MouseDown(Input.mousePosition);
+                currentDragger = piece;
+            }
+        }
     }
 
     private void StaplerUp()
